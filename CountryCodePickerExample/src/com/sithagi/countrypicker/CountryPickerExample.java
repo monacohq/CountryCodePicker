@@ -26,7 +26,7 @@ public class CountryPickerExample extends FragmentActivity {
         CountryPicker picker = new CountryPicker();
         picker.setListener(new CountryPickerListener() {
             @Override
-            public void onSelectCountry(String name, String code, String dialCode) {
+            public void onSelectCountry(String name, String code, String dialCode,String currencySymbol, String currency) {
                 Toast.makeText(
                         CountryPickerExample.this,
                         "Country Name: " + name + " - Code: " + code
@@ -53,7 +53,7 @@ public class CountryPickerExample extends FragmentActivity {
                 picker.setListener(new CountryPickerListener() {
 
                     @Override
-                    public void onSelectCountry(String name, String code, String dialCode) {
+                    public void onSelectCountry(String name, String code, String dialCode, String currencySymbol, String currency ) {
                         Toast.makeText(
                                 CountryPickerExample.this,
                                 "Country Name: " + name + " - Code: " + code
