@@ -66,7 +66,7 @@ public class CountryListAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			cell = new Cell();
-			cellView = inflater.inflate(R.layout.row, null);
+			cellView = inflater.inflate(R.layout.currency_row, null);
 			cell.textView = (TextView) cellView.findViewById(R.id.row_title);
 			cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
 			cellView.setTag(cell);
