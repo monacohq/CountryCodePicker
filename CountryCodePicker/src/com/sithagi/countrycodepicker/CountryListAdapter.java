@@ -14,82 +14,82 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
- 
+
 
 public class CountryListAdapter extends BaseAdapter {
 
-	private Context context;
-	List<Country> countries;
-	LayoutInflater inflater;
+    private Context context;
+    List<Country> countries;
+    LayoutInflater inflater;
 
-	private int getResId(String drawableName) {
+    private int getResId(String drawableName) {
 
-		try {
-			Class<drawable> res = R.drawable.class;
-			Field field = res.getField(drawableName);
-			int drawableId = field.getInt(null);
-			return drawableId;
-		} catch (Exception e) {
-			Log.e("CountryCodePicker", "Failure to get drawable id.", e);
-		}
-		return -1;
-	} 
-	
-	public CountryListAdapter(Context context, List<Country> countries) {
-		super();
-		this.context = context;
-		this.countries = countries;
-		inflater = (LayoutInflater) this.context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
+        try {
+            Class<drawable> res = R.drawable.class;
+            Field field = res.getField(drawableName);
+            int drawableId = field.getInt(null);
+            return drawableId;
+        } catch (Exception e) {
+            Log.e("CountryCodePicker", "Failure to get drawable id.", e);
+        }
+        return -1;
+    }
 
-	@Override
-	public int getCount() {
-		return countries.size();
-	}
+    public CountryListAdapter(Context context, List<Country> countries) {
+        super();
+        this.context = context;
+        this.countries = countries;
+        inflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
-	@Override
-	public Object getItem(int arg0) {
-		return null;
-	}
+    @Override
+    public int getCount() {
+        return countries.size();
+    }
 
-	@Override
-	public long getItemId(int arg0) {
-		return 0;
-	}
- 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View cellView = convertView;
-		Cell cell;
-		Country country = countries.get(position);
+    @Override
+    public Object getItem(int arg0) {
+        return null;
+    }
 
-		if (convertView == null) {
-			cell = new Cell();
-			cellView = inflater.inflate(R.layout.currency_row, null);
-			cell.textView = (TextView) cellView.findViewById(R.id.row_title);
-			cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
-			cell.currencyView = (TextView) cellView.findViewById(R.id.row_currency);
-			cellView.setTag(cell);
-		} else {
-			cell = (Cell) cellView.getTag();
-		}
+    @Override
+    public long getItemId(int arg0) {
+        return 0;
+    }
 
-		cell.textView.setText(country.getName());
- 
-		String drawableName = "flag_"
-				+ country.getCode().toLowerCase(Locale.ENGLISH);
-		cell.currencyView.setText(country.getCurrency());
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View cellView = convertView;
+        Cell cell;
+        Country country = countries.get(position);
 
-		cell.imageView.setImageResource(getResId(drawableName));
-		return cellView;
-	}
- 
-	static class Cell {
-		public TextView textView;
-		public ImageView imageView;
-		public TextView currencyView;
+        if (convertView == null) {
+            cell = new Cell();
+            cellView = inflater.inflate(R.layout.currency_row, null);
+            cell.textView = (TextView) cellView.findViewById(R.id.row_title);
+            cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
+            cell.currencyView = (TextView) cellView.findViewById(R.id.row_currency);
+            cellView.setTag(cell);
+        } else {
+            cell = (Cell) cellView.getTag();
+        }
 
-	}
+        cell.textView.setText(country.getName());
+        String drawableName = "flag_"
+                + country.getCode().toLowerCase(Locale.ENGLISH);
+
+        cell.imageView.setImageResource(getResId(drawableName));
+        cell.currencyView.setText(country.getCurrency());
+
+        return cellView;
+    }
+
+    static class Cell {
+        public TextView textView;
+        public ImageView imageView;
+        public TextView currencyView;
+
+    }
 
 }
