@@ -4,6 +4,8 @@ public class Country {
 	private String code;
 	private String name;
 	private String dialCode;
+	private String currency;
+	private String currencySymbol;
 
 	public String getDialCode() {
 		return dialCode;
@@ -27,6 +29,22 @@ public class Country {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public String getCurrencySymbol() {
+		return currencySymbol;
+	}
+
+	public void setCurrencySymbol(String currencySymbol) {
+		this.currencySymbol = currencySymbol;
 	}
 
 }

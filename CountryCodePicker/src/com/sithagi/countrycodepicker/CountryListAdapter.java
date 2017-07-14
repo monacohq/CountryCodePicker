@@ -69,6 +69,7 @@ public class CountryListAdapter extends BaseAdapter {
 			cellView = inflater.inflate(R.layout.currency_row, null);
 			cell.textView = (TextView) cellView.findViewById(R.id.row_title);
 			cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
+			cell.currencyView = (TextView) cellView.findViewById(R.id.row_currency);
 			cellView.setTag(cell);
 		} else {
 			cell = (Cell) cellView.getTag();
@@ -78,6 +79,8 @@ public class CountryListAdapter extends BaseAdapter {
  
 		String drawableName = "flag_"
 				+ country.getCode().toLowerCase(Locale.ENGLISH);
+		cell.currencyView.setText(country.getCurrency());
+
 		cell.imageView.setImageResource(getResId(drawableName));
 		return cellView;
 	}
@@ -85,6 +88,8 @@ public class CountryListAdapter extends BaseAdapter {
 	static class Cell {
 		public TextView textView;
 		public ImageView imageView;
+		public TextView currencyView;
+
 	}
 
 }
