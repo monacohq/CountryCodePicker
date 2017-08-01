@@ -26,12 +26,12 @@ public class CountryPickerExample extends FragmentActivity {
         CountryPicker picker = new CountryPicker(CountryPicker.Mode.Tel);
         picker.setListener(new CountryPickerListener() {
             @Override
-            public void onSelectCountry(String name, String code, String dialCode, String currencySymbol, String Currency) {
+            public void onSelectCountry(String name, String code, String dialCode, String currencySymbol, String Currency, String flagDrawableName) {
                 Toast.makeText(
                         CountryPickerExample.this,
                         "Country Name: " + name + " - Code: " + code
                                 + " - Currency: "
-                                + CountryPicker.getCurrencyCode(code) + " - Dial Code: " + dialCode,
+                                + CountryPicker.getCurrencyCode(code) + " - Dial Code: " + dialCode + " - FLag: " + flagDrawableName,
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -53,12 +53,12 @@ public class CountryPickerExample extends FragmentActivity {
                 picker.setListener(new CountryPickerListener() {
 
                     @Override
-                    public void onSelectCountry(String name, String code, String dialCode, String currencySymbol, String Currency) {
+                    public void onSelectCountry(String name, String code, String dialCode, String currencySymbol, String Currency, String flagDrawableName) {
                         Toast.makeText(
                                 CountryPickerExample.this,
                                 "Country Name: " + name + " - Code: " + code
                                         + " - Currency: "
-                                        + CountryPicker.getCurrencyCode(code) + " - Dial Code: " + dialCode,
+                                        + CountryPicker.getCurrencyCode(code) + " - Dial Code: " + dialCode + " - FLag: " + flagDrawableName,
                                 Toast.LENGTH_SHORT).show();
                     }
                 });

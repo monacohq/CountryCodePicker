@@ -100,12 +100,7 @@ public class CountryListAdapter extends BaseAdapter {
             }
 
             cell.textView.setText(country.getName());
-
-            String drawableName = country.getName().toLowerCase(Locale.ENGLISH).replace(" ", "_");
-            drawableName = Normalizer.normalize(drawableName, Normalizer.Form.NFD);
-            drawableName = drawableName.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-            drawableName = drawableName.replaceAll("[-\\[\\]^/,'’*:.!><~@#$%&+=?|\"\\\\()]+","");
-            cell.imageView.setImageResource(getResId(drawableName));
+            cell.imageView.setImageResource(getResId(country.getFlagDrawableName()));
         }
         return cellView;
     }

@@ -204,7 +204,7 @@ public class CountryPicker extends DialogFragment implements
                 if (listener != null) {
                     Country country = selectedCountriesList.get(position);
                     listener.onSelectCountry(country.getName(),
-                            country.getCode(), country.getDialCode(), country.getCurrencySymbol(), country.getCurrency());
+                            country.getCode(), country.getDialCode(), country.getCurrencySymbol(), country.getCurrency(), country.getFlagDrawableName());
                 }
             }
         });
