@@ -1,6 +1,7 @@
 package com.sithagi.countrycodepicker;
 
 import java.lang.reflect.Field;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
 
@@ -79,8 +80,11 @@ public class CountryListAdapter extends BaseAdapter {
             }
 
             cell.textView.setText(country.getName());
-            String drawableName = "flag_"
-                    + country.getCode().toLowerCase(Locale.ENGLISH);
+
+            String drawableName = country.getName().toLowerCase(Locale.ENGLISH).replace(" ", "_");
+            drawableName = Normalizer.normalize(drawableName, Normalizer.Form.NFD);
+            drawableName = drawableName.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+            drawableName = drawableName.replaceAll("[-\\[\\]^/,'’*:.!><~@#$%&+=?|\"\\\\()]+","");
 
             cell.imageView.setImageResource(getResId(drawableName));
             cell.currencyView.setText(country.getCurrency());
@@ -97,8 +101,10 @@ public class CountryListAdapter extends BaseAdapter {
 
             cell.textView.setText(country.getName());
 
-            String drawableName = "flag_"
-                    + country.getCode().toLowerCase(Locale.ENGLISH);
+            String drawableName = country.getName().toLowerCase(Locale.ENGLISH).replace(" ", "_");
+            drawableName = Normalizer.normalize(drawableName, Normalizer.Form.NFD);
+            drawableName = drawableName.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+            drawableName = drawableName.replaceAll("[-\\[\\]^/,'’*:.!><~@#$%&+=?|\"\\\\()]+","");
             cell.imageView.setImageResource(getResId(drawableName));
         }
         return cellView;

@@ -119,10 +119,11 @@ public class CountryPicker extends DialogFragment implements
                         String countryName = jsonObject.getString("name");
                         String countryDialCode = jsonObject.getString("dial_code");
                         String countryCode = jsonObject.getString("code");
+                        Locale locale = new Locale("en", countryCode);
 
                         Country country = new Country();
                         country.setCode(countryCode);
-                        country.setName(countryName);
+                        country.setName(locale.getDisplayCountry(Locale.ENGLISH));
                         country.setDialCode(countryDialCode);
                         allCountriesList.add(country);
                     }
