@@ -23,7 +23,7 @@ public class CountryPickerExample extends FragmentActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        CountryPicker picker = new CountryPicker();
+        CountryPicker picker = new CountryPicker(CountryPicker.Mode.Tel);
         picker.setListener(new CountryPickerListener() {
             @Override
             public void onSelectCountry(String name, String code, String dialCode, String currencySymbol, String Currency) {

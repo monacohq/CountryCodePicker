@@ -21,6 +21,7 @@ public class CountryListAdapter extends BaseAdapter {
     private Context context;
     List<Country> countries;
     LayoutInflater inflater;
+    CountryPicker.Mode mode;
 
     private int getResId(String drawableName) {
 
@@ -35,10 +36,11 @@ public class CountryListAdapter extends BaseAdapter {
         return -1;
     }
 
-    public CountryListAdapter(Context context, List<Country> countries) {
+    public CountryListAdapter(Context context, List<Country> countries, CountryPicker.Mode mode) {
         super();
         this.context = context;
         this.countries = countries;
+        this.mode = mode;
         inflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -64,24 +66,41 @@ public class CountryListAdapter extends BaseAdapter {
         Cell cell;
         Country country = countries.get(position);
 
-        if (convertView == null) {
-            cell = new Cell();
-            cellView = inflater.inflate(R.layout.currency_row, null);
-            cell.textView = (TextView) cellView.findViewById(R.id.row_title);
-            cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
-            cell.currencyView = (TextView) cellView.findViewById(R.id.row_currency);
-            cellView.setTag(cell);
-        } else {
-            cell = (Cell) cellView.getTag();
+        if (mode == CountryPicker.Mode.Currency) {
+            if (convertView == null) {
+                cell = new Cell();
+                cellView = inflater.inflate(R.layout.currency_row, null);
+                cell.textView = (TextView) cellView.findViewById(R.id.row_title);
+                cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
+                cell.currencyView = (TextView) cellView.findViewById(R.id.row_currency);
+                cellView.setTag(cell);
+            } else {
+                cell = (Cell) cellView.getTag();
+            }
+
+            cell.textView.setText(country.getName());
+            String drawableName = "flag_"
+                    + country.getCode().toLowerCase(Locale.ENGLISH);
+
+            cell.imageView.setImageResource(getResId(drawableName));
+            cell.currencyView.setText(country.getCurrency());
+        } else if (mode == CountryPicker.Mode.Tel) {
+            if (convertView == null) {
+                cell = new Cell();
+                cellView = inflater.inflate(R.layout.row, null);
+                cell.textView = (TextView) cellView.findViewById(R.id.row_title);
+                cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
+                cellView.setTag(cell);
+            } else {
+                cell = (Cell) cellView.getTag();
+            }
+
+            cell.textView.setText(country.getName());
+
+            String drawableName = "flag_"
+                    + country.getCode().toLowerCase(Locale.ENGLISH);
+            cell.imageView.setImageResource(getResId(drawableName));
         }
-
-        cell.textView.setText(country.getName());
-        String drawableName = "flag_"
-                + country.getCode().toLowerCase(Locale.ENGLISH);
-
-        cell.imageView.setImageResource(getResId(drawableName));
-        cell.currencyView.setText(country.getCurrency());
-
         return cellView;
     }
 

@@ -40,6 +40,10 @@ public class CountryPicker extends DialogFragment implements
 
     private CountryPickerListener listener;
 
+    private Mode mode;
+
+    public enum Mode {Currency, Tel}
+
     public void setListener(CountryPickerListener listener) {
         this.listener = listener;
     }
@@ -61,51 +65,68 @@ public class CountryPicker extends DialogFragment implements
         return null;
     }
 
+    public CountryPicker(Mode mode) {
+        this.mode = mode;
+    }
+
     private List<Country> getAllCountries() {
         if (allCountriesList == null) {
             try {
                 allCountriesList = new ArrayList<Country>();
+
                 String[] supportedCurrencies = getResources().getStringArray(R.array.supported_currency);
                 String allCountriesCode = readEncodedJsonString(getActivity());
 
                 JSONArray countryArray = new JSONArray(allCountriesCode);
-
-                for (int i = 0; i < supportedCurrencies.length; i++) {
+                if (mode == Mode.Currency) {
+                    for (int i = 0; i < supportedCurrencies.length; i++) {
 //                    JSONObject jsonObject = countryArray.getJSONObject(i);
 //                    String countryName = jsonObject.getString("name");
 //                    String countryDialCode = jsonObject.getString("dial_code");
 //                    String countryCode = jsonObject.getString("code");
-                    String countryCode = supportedCurrencies[i];
-                    try {
-                        Locale locale = new Locale("en", countryCode);
-                        Currency currency = Currency.getInstance(locale);
+                        String countryCode = supportedCurrencies[i];
+                        try {
+                            Locale locale = new Locale("en", countryCode);
+                            Currency currency = Currency.getInstance(locale);
 
-                        if (locale != null && currency != null) {
-                            Country country = new Country();
+                            if (locale != null && currency != null) {
+                                Country country = new Country();
 
-                            country.setCode(countryCode);
-                            country.setName(locale.getDisplayCountry(Locale.ENGLISH));
-                            country.setDialCode("");
-                            country.setCurrency(currency.getCurrencyCode());
-                            country.setCurrencySymbol(currency.getSymbol());
-                            allCountriesList.add(country);
+                                country.setCode(countryCode);
+                                country.setName(locale.getDisplayCountry(Locale.ENGLISH));
+                                country.setDialCode("");
+                                country.setCurrency(currency.getCurrencyCode());
+                                country.setCurrencySymbol(currency.getSymbol());
+                                allCountriesList.add(country);
+                            }
+                        } catch (Exception e) {
+                            Log.i("exception", e.toString());
                         }
-                    } catch (Exception e) {
-                        Log.i("exception", e.toString());
+                    }
+
+                    //add eu manually, cause eu is not in the locale
+                    Country country = new Country();
+
+                    country.setCode("EU");
+                    country.setName("European Union");
+                    country.setDialCode("");
+                    country.setCurrency("EUR");
+                    country.setCurrencySymbol("€");
+                    allCountriesList.add(country);
+                } else if (mode == mode.Tel) {
+                    for (int i = 0; i < countryArray.length(); i++) {
+                        JSONObject jsonObject = countryArray.getJSONObject(i);
+                        String countryName = jsonObject.getString("name");
+                        String countryDialCode = jsonObject.getString("dial_code");
+                        String countryCode = jsonObject.getString("code");
+
+                        Country country = new Country();
+                        country.setCode(countryCode);
+                        country.setName(countryName);
+                        country.setDialCode(countryDialCode);
+                        allCountriesList.add(country);
                     }
                 }
-
-                //add eu manually, cause eu is not in the locale
-                Country country = new Country();
-
-                country.setCode("EU");
-                country.setName("European Union");
-                country.setDialCode("");
-                country.setCurrency("EUR");
-                country.setCurrencySymbol("€");
-
-                allCountriesList.add(country);
-
                 Collections.sort(allCountriesList, this);
 
                 selectedCountriesList = new ArrayList<Country>();
@@ -135,7 +156,11 @@ public class CountryPicker extends DialogFragment implements
      * @return
      */
     public static CountryPicker newInstance(String dialogTitle) {
-        CountryPicker picker = new CountryPicker();
+        return newInstance(dialogTitle, Mode.Currency);
+    }
+
+    public static CountryPicker newInstance(String dialogTitle, Mode mode) {
+        CountryPicker picker = new CountryPicker(mode);
         Bundle bundle = new Bundle();
         bundle.putString("dialogTitle", dialogTitle);
         picker.setArguments(bundle);
@@ -166,7 +191,8 @@ public class CountryPicker extends DialogFragment implements
         countryListView = (ListView) view
                 .findViewById(R.id.country_code_picker_listview);
 
-        adapter = new CountryListAdapter(getActivity(), selectedCountriesList);
+
+        adapter = new CountryListAdapter(getActivity(), selectedCountriesList, mode);
         countryListView.setAdapter(adapter);
 
         countryListView.setOnItemClickListener(new OnItemClickListener() {
@@ -206,10 +232,18 @@ public class CountryPicker extends DialogFragment implements
     @SuppressLint("DefaultLocale")
     private void search(String text) {
         selectedCountriesList.clear();
-
-        for (Country country : allCountriesList) {
-            if (country.getName().toLowerCase(Locale.ENGLISH).contains(text.toLowerCase()) || country.getCurrency().toLowerCase(Locale.ENGLISH).contains(text.toLowerCase())) {
-                selectedCountriesList.add(country);
+        if (mode == Mode.Currency) {
+            for (Country country : allCountriesList) {
+                if (country.getName().toLowerCase(Locale.ENGLISH).contains(text.toLowerCase()) || country.getCurrency().toLowerCase(Locale.ENGLISH).contains(text.toLowerCase())) {
+                    selectedCountriesList.add(country);
+                }
+            }
+        } else if (mode == Mode.Tel) {
+            for (Country country : allCountriesList) {
+                if (country.getName().toLowerCase(Locale.ENGLISH)
+                        .contains(text.toLowerCase())) {
+                    selectedCountriesList.add(country);
+                }
             }
         }
 
