@@ -1,5 +1,6 @@
 package com.sithagi.countrycodepicker;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -169,6 +170,14 @@ public class CountryPicker extends DialogFragment implements
         bundle.putString("dialogTitle", dialogTitle);
         picker.setArguments(bundle);
         return picker;
+    }
+
+    public static String getFlagDrawableName(String countryDisplayName){
+        String drawableName = countryDisplayName.toLowerCase(Locale.ENGLISH).replace(" ", "_");
+        drawableName = Normalizer.normalize(drawableName, Normalizer.Form.NFD);
+        drawableName = drawableName.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        drawableName = drawableName.replaceAll("[-\\[\\]^/,'’*:.!><~@#$%&+=?|\"\\\\()]+","");
+        return drawableName;
     }
 
     @Override
