@@ -9,8 +9,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_margin="8dp"
-        android:background="@drawable/image_circle"
-        android:src="@drawable/abkhazia" />
+        android:background="@drawable/image_circle"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -81,11 +81,8 @@ public class CountryListAdapter extends BaseAdapter {
 
             cell.textView.setText(country.getName());
 
-            String drawableName = country.getName().toLowerCase(Locale.ENGLISH).replace(" ", "_");
-            drawableName = Normalizer.normalize(drawableName, Normalizer.Form.NFD);
-            drawableName = drawableName.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-            drawableName = drawableName.replaceAll("[-\\[\\]^/,'’*:.!><~@#$%&+=?|\"\\\\()]+","");
-
+            String drawableName = country.getCode().toLowerCase();
+            if (drawableName == "do") drawableName = "do1";
             cell.imageView.setImageResource(getResId(drawableName));
             cell.currencyView.setText(country.getCurrency());
         } else if (mode == CountryPicker.Mode.Tel) {
@@ -100,7 +97,9 @@ public class CountryListAdapter extends BaseAdapter {
             }
 
             cell.textView.setText(country.getName());
-            cell.imageView.setImageResource(getResId(country.getFlagDrawableName()));
+            String drawableName = country.getCode().toLowerCase();
+            if (drawableName == "do") drawableName = "do1";
+            cell.imageView.setImageResource(getResId(drawableName));
         }
         return cellView;
     }
