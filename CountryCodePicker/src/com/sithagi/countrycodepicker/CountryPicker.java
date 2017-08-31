@@ -179,7 +179,7 @@ public class CountryPicker extends DialogFragment implements
     }
 
     public static String getFlagDrawableName(String code) {
-        if (code == "do") code = "do1";
+        if (code == "do") code = "dmm";
         return code;
     }
 

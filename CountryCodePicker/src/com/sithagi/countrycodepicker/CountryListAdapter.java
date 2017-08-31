@@ -82,7 +82,7 @@ public class CountryListAdapter extends BaseAdapter {
             cell.textView.setText(country.getName());
 
             String drawableName = country.getCode().toLowerCase();
-            if (drawableName == "do") drawableName = "do1";
+            if (drawableName == "do") drawableName = "dmm";
             cell.imageView.setImageResource(getResId(drawableName));
             cell.currencyView.setText(country.getCurrency());
         } else if (mode == CountryPicker.Mode.Tel) {
@@ -98,7 +98,9 @@ public class CountryListAdapter extends BaseAdapter {
 
             cell.textView.setText(country.getName());
             String drawableName = country.getCode().toLowerCase();
-            if (drawableName == "do") drawableName = "do1";
+            if (drawableName.equals("do")) {
+                drawableName = "dmm";
+            }
             cell.imageView.setImageResource(getResId(drawableName));
         }
         return cellView;
