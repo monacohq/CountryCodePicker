@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorCountryCodePickerBackground">#393939</color>
-    <color name="colorCountryCodePickerTextColor">#ffffff</color>
-    <color name="colorCountryCodePickerlistSelector">@android:color/darker_gray</color>
+    <!--<color name="colorCountryCodePickerBackground">#393939</color>-->
+    <!--<color name="colorCountryCodePickerTextColor">#ffffff</color>-->
+    <!--<color name="colorCountryCodePickerlistSelector">@android:color/darker_gray</color>-->
+    <color name="colorCountryCodePickerBackground">#ffffff</color>
+    <color name="colorCountryCodePickerTextColor">#000000</color>
+    <color name="colorCountryCodePickerTextSecondaryColor">#99000000</color>
+    <color name="colorCountryCodePickerlistSelector">#10000000</color>
 </resources>

@@ -90,18 +90,20 @@ public class CountryListAdapter extends BaseAdapter {
                 cell = new Cell();
                 cellView = inflater.inflate(R.layout.row, null);
                 cell.textView = (TextView) cellView.findViewById(R.id.row_title);
-                cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
+//                cell.imageView = (ImageView) cellView.findViewById(R.id.row_icon);
+                cell.extView = (TextView) cellView.findViewById(R.id.row_ext);
                 cellView.setTag(cell);
             } else {
                 cell = (Cell) cellView.getTag();
             }
 
             cell.textView.setText(country.getName());
-            String drawableName = country.getCode().toLowerCase();
-            if (drawableName.equals("do")) {
-                drawableName = "dmm";
-            }
-            cell.imageView.setImageResource(getResId(drawableName));
+            cell.extView.setText(country.getDialCode());
+//            String drawableName = country.getCode().toLowerCase();
+//            if (drawableName.equals("do")) {
+//                drawableName = "dmm";
+//            }
+//            cell.imageView.setImageResource(getResId(drawableName));
         }
         return cellView;
     }
@@ -110,6 +112,7 @@ public class CountryListAdapter extends BaseAdapter {
         public TextView textView;
         public ImageView imageView;
         public TextView currencyView;
+        public TextView extView;
 
     }
 
