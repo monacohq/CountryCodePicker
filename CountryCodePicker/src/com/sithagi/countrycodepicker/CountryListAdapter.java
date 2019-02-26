@@ -101,6 +101,7 @@ public class CountryListAdapter extends BaseAdapter {
 
             cell.textView.setText(country.getName());
             cell.extView.setText(country.getDialCode());
+
 //            String drawableName = country.getCode().toLowerCase();
 //            if (drawableName.equals("do")) {
 //                drawableName = "dmm";
