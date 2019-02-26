@@ -2,8 +2,35 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        google()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
+}
+
+repositories {
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
+}
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        google()
+        jcenter()
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir //指定clean的时候清除掉指定目录
 }
