@@ -27,6 +27,8 @@ public class CountryListAdapter extends BaseAdapter {
     private int getResId(String drawableName) {
 
         try {
+//            String packageName = context.getPackageName();
+//            return context.getResources().getIdentifier(drawableName, "drawable", packageName);
             Class<drawable> res = R.drawable.class;
             Field field = res.getField(drawableName);
             int drawableId = field.getInt(null);

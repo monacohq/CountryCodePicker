@@ -1,18 +1,18 @@
-apply plugin: 'android'
+apply plugin: "com.android.application"
 
 dependencies {
-    compile project(':CountryCodePicker')
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile('com.android.support:appcompat-v7:22.+') {
+    implementation project(':CountryCodePicker')
+    implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation('com.android.support:appcompat-v7:22.+') {
         exclude module: 'support-v4'
     }
-
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 }
 
 android {
 
-    compileSdkVersion 22
-    buildToolsVersion "22"
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     buildTypes {
         release {
@@ -36,12 +36,12 @@ android {
             assets.srcDirs = ['assets']
         }
 
-        lintOptions {
-            abortOnError false
-        }
+//        lintOptions {
+//            abortOnError false
+//        }
 
         // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
+        androidTest.setRoot('tests')
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
@@ -54,8 +54,8 @@ android {
     }
     defaultConfig {
         applicationId "com.sithagi.countrypicker"
-        minSdkVersion 9
-        targetSdkVersion 22
+        minSdkVersion 14
+        targetSdkVersion 28
     }
     productFlavors {
     }
